@@ -54,8 +54,8 @@ const About = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-primary/20 rounded-2xl transform rotate-6"></div>
               <img 
-                src={aiTechIllustration}
-                alt="AI and Technology Innovation"
+                src="/lovable-uploads/9f05e5e7-d599-4765-82c8-81ee3d462379.png"
+                alt="G. Eshwar - Aspiring AI & ML Engineer"
                 className="relative rounded-2xl shadow-elegant w-full h-auto object-cover hover:scale-105 transition-transform duration-500"
               />
             </div>
