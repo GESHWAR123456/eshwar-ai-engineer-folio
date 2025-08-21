@@ -24,7 +24,7 @@ const Contact = () => {
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Basic form validation
@@ -37,14 +37,39 @@ const Contact = () => {
       return;
     }
 
-    // Simulate form submission
-    toast({
-      title: "Message sent successfully!",
-      description: "Thank you for reaching out. I'll get back to you soon.",
-    });
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: 'b6214f2f-6904-440f-91c5-d05d475d18b5',
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          from_name: formData.name,
+          subject: `Portfolio Contact from ${formData.name}`,
+        }),
+      });
 
-    // Reset form
-    setFormData({ name: '', email: '', message: '' });
+      if (response.ok) {
+        toast({
+          title: "Message sent successfully!",
+          description: "Thank you for reaching out. I'll get back to you soon.",
+        });
+        // Reset form
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        throw new Error('Failed to send message');
+      }
+    } catch (error) {
+      toast({
+        title: "Failed to send message",
+        description: "Please try again later or contact me directly via email.",
+        variant: "destructive"
+      });
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
